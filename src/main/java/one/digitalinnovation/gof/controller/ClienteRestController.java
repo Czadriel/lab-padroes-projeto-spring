@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import one.digitalinnovation.gof.model.Produto;
 
 import one.digitalinnovation.gof.model.Cliente;
 import one.digitalinnovation.gof.service.ClienteService;
@@ -53,6 +54,13 @@ public class ClienteRestController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		clienteService.deletar(id);
+		return ResponseEntity.ok().build();
+	}
+	@PostMapping("/{clienteId}/produtos")
+	public ResponseEntity<Void> adicionarProdutoAoCliente(
+			@PathVariable Long clienteId,
+			@RequestBody Produto produto){
+		clienteService.adicionarProdutoAoCliente(clienteId, produto);
 		return ResponseEntity.ok().build();
 	}
 }

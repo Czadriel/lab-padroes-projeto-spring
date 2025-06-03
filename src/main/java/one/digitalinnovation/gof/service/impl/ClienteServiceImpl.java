@@ -1,14 +1,13 @@
 package one.digitalinnovation.gof.service.impl;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
+import javassist.expr.NewArray;
+import one.digitalinnovation.gof.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import one.digitalinnovation.gof.model.Cliente;
-import one.digitalinnovation.gof.model.ClienteRepository;
-import one.digitalinnovation.gof.model.Endereco;
-import one.digitalinnovation.gof.model.EnderecoRepository;
 import one.digitalinnovation.gof.service.ClienteService;
 import one.digitalinnovation.gof.service.ViaCepService;
 
@@ -79,5 +78,23 @@ public class ClienteServiceImpl implements ClienteService {
 		// Inserir Cliente, vinculando o Endereco (novo ou existente).
 		clienteRepository.save(cliente);
 	}
+	public void adicionarProdutoAoCliente(Long clienteId, Produto produto){
+		Optional<Cliente> clienteOpt = clienteRepository.findById(clienteId);
+	if(clienteOpt.isPresent()){
+		Cliente cliente	= clienteOpt.get();
+
+		produtoRepository.save(produto);
+
+		if(cliente.getProdutos() == null){
+			cliente.setProdutos((new ArrayList<>()));
+		}
+		cliente	.getProdutos().add(produto);
+
+		clienteRepository.save(cliente);
+		}
+	}
+
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 }

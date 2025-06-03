@@ -20,7 +20,15 @@
 		<openapi.version>1.5.10</openapi.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
-	
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- Spring Data JPA (adicionado via Spring Initializr) -->
 		<dependency>
@@ -76,7 +84,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>15</source>
+                    <target>15</target>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
-
 </project>
